@@ -16,7 +16,8 @@ async def on_ready():
     do_print = True
     is_muted = False
     is_dead = False
-    value_to_mute = 5
+    is_beaten = False
+    value_to_mute = 20
     while True:
         is_practicemode = memory.is_practice_mode()
         normal_best = int(memory.get_normal_percent())
@@ -24,6 +25,7 @@ async def on_ready():
         raw_percentage = (memory.get_percent())
         if raw_percentage <= 0.5:
             is_dead = False
+            is_beaten = False
         if percentage > value_to_mute and is_muted == False and is_dead == False and is_practicemode == False:
             pyautogui.press('scrolllock')
             is_muted = True
@@ -31,7 +33,6 @@ async def on_ready():
 
 
         if memory.is_dead():  # if player is dead
-            print("ded")
             is_dead = True
             if is_muted == True:
                 pyautogui.press('scrolllock')
@@ -50,6 +51,20 @@ async def on_ready():
             do_print = False
         else:
             do_print = True
+
+        if percentage == 100 and is_beaten == False:
+            is_muted = False
+            is_beaten = True
+            pyautogui.press('scrolllock')
+            lvl_name = str(memory.level_name)
+            user = memory.get_user_name()
+            attempts = memory.get_attempts()
+            jumps = memory.get_jumps()
+            current_attempt = memory.get_attempt()
+            channel = client.get_channel(833440246825091116)
+            await channel.send(f'{user} beat {lvl_name} in {current_attempt} attempt with total of {attempts} attempts and {jumps} jumps!')
+
+
     
 # client.run('ODMxMTAxMTUxMzgyMjA4NTIy.YHQVQw.AC_rnIZrnUkraVdm764BzcWhCmU')
 client.run('ODU1MTgwODY1MTU4Nzc0ODEw.YMuvPg.9nC8FwNi-tr1-SHBaMm7ScFUr9o')
