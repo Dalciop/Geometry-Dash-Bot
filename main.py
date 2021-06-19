@@ -24,7 +24,7 @@ async def on_ready():
     is_in_lvl = False
     while True:
         is_in_lvl = memory.is_in_level()
-        if is_in_lvl == False:
+        if is_in_lvl == False and is_muted == True:
             is_muted = False
             pyautogui.press('scrolllock')
         time.sleep(0.2)
