@@ -21,7 +21,12 @@ async def on_ready():
     f = open("mute.value", "r")
     value_to_mute = int(f.read())
     print(value_to_mute)
+    is_in_lvl = False
     while True:
+        is_in_lvl = memory.is_in_level()
+        if is_in_lvl == False:
+            is_muted = False
+            pyautogui.press('scrolllock')
         time.sleep(0.2)
         f = open("mute.value", "r")
         value_to_mute = int(f.read())
