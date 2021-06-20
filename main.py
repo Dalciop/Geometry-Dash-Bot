@@ -54,7 +54,7 @@ async def on_ready():
                 # normal_best = int(memory.get_normal_percent())
                 lvl_name = str(memory.level_name)
                 print(lvl_name)
-                if percentage > normal_best:
+                if percentage > normal_best and is_practicemode == False:
                     channel = client.get_channel(833440246825091116)
                     await channel.send(f"New best {percentage}% on {lvl_name}! Previous was {normal_best}%")
                     print(f'Nowy rekord {percentage}% na {lvl_name}! Poprzednim był {normal_best}%')
@@ -65,7 +65,7 @@ async def on_ready():
         else:
             do_print = True
 
-        if percentage == 100 and is_beaten == False:
+        if percentage == 100 and is_beaten == False and is_practicemode == False:
             is_muted = False
             is_beaten = True
             pyautogui.press('scrolllock')
