@@ -27,8 +27,9 @@ async def on_ready():
     is_muted = False
     is_dead = False
     is_beaten = False
-    f = open("mute.value", "r")
-    value_to_mute = int(f.read())
+    with open("preferences.conf", "r") as file:
+        data = file.readlines()
+        value_to_mute = int(data[0])
     print(value_to_mute)
     is_in_lvl = False
     while True:
@@ -46,8 +47,9 @@ async def on_ready():
         
         time.sleep(0.2)
         
-        f = open("mute.value", "r")
-        value_to_mute = int(f.read())
+        with open("preferences.conf", "r") as file:
+            data = file.readlines()
+            value_to_mute = int(data[0])
         is_practicemode = memory.is_practice_mode()
         raw_percentage = (memory.get_percent())
         
@@ -75,13 +77,15 @@ async def on_ready():
                 # normal_best = int(memory.get_normal_percent())
                 lvl_name = str(memory.level_name)
                 print(lvl_name)
-                f2 = open("preferences.conf", "r")
-                do_notify = int(f2.read())
+                with open("preferences.conf", "r") as file:
+                    data = file.readlines()
+                    do_notify = int(data[2])
                 f = open("temp.temp", "r")
                 normal_best = int(f.read())
                 if percentage > normal_best and is_practicemode == False and do_notify == 1:
-                    f = open("channel.id", "r")
-                    channel_id = int(f.read())
+                    with open("preferences.conf", "r") as file:
+                        data = file.readlines()
+                        channel_id = int(data[1])
                     channel = client.get_channel(channel_id)
                     await channel.send(f"New best {percentage}% on {lvl_name}! Previous was {normal_best}%")
                     print(f'Nowy rekord {percentage}% na {lvl_name}! Poprzednim był {normal_best}%')

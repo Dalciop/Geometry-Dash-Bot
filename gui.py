@@ -50,18 +50,27 @@ class SampleApp(tk.Tk):
         self.bot_token_entry.delete(0, tk.END)
 
     def click_set_channel_id(self):
-        f = open("channel.id", "w")
-        f.write(self.bot_token_entry.get())
-        self.bot_token_entry.delete(0, tk.END)
+        with open("preferences.conf", "r") as file:
+            data = file.readlines()
+        data[1] = self.channel_id_entry.get()
+        with open("preferences.conf", "w") as file:
+            file.writelines(data)
+        self.channel_id_entry.delete(0, tk.END)
 
     def notify_on_best(self):
         if (self.notify_on_best_var.get() == 1):
-            f = open("preferences.conf", "w")
-            f.write(self.notify_on_best_var.get())
+            with open("preferences.conf", "r") as file:
+                data = file.readlines()
+            data[2] = self.notify_on_best_var.get()
+            with open("preferences.conf", "w") as file:
+                file.writelines(data)
 
     def click_mute_button(self):
-        f = open("mute.value", "w")
-        f.write(self.mute_entry.get())
+        with open("preferences.conf", "r") as file:
+            data = file.readlines()
+            data[0] = self.mute_entry.get()
+        with open("preferences.conf", "w") as file:
+            file.writelines(data)
 
 w = SampleApp()
 w.title("Geometry Dash Bot")
