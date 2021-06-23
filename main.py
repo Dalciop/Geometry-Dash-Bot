@@ -80,7 +80,9 @@ async def on_ready():
                 f = open("temp.temp", "r")
                 normal_best = int(f.read())
                 if percentage > normal_best and is_practicemode == False and do_notify == 1:
-                    channel = client.get_channel(833440246825091116)
+                    f = open("channel.id", "r")
+                    channel_id = int(f.read())
+                    channel = client.get_channel(channel_id)
                     await channel.send(f"New best {percentage}% on {lvl_name}! Previous was {normal_best}%")
                     print(f'Nowy rekord {percentage}% na {lvl_name}! Poprzednim był {normal_best}%')
                 # print(f"{random.choice(messages)} ({memory.get_percent()}%)")
