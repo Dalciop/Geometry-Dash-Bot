@@ -35,6 +35,7 @@ class SampleApp(tk.Tk):
     def click_bot_token_button(self):
         f = open("TOKEN.token", "w")
         f.write(self.bot_token_entry.get())
+        self.bot_token_entry.delete(0, tk.END)
 
     def notify_on_best(self):
         if (self.notify_on_best_var.get() == 1):

@@ -2,9 +2,18 @@ import os, time, gd, pyautogui
 import tkinter as tk
 import discord
 from discord.ext import commands
+import os.path
+
+os.system("start /b cmd.exe /c python gui.py")
+
+isfile = os.path.isfile("TOKEN.token")
+
+while isfile != True:
+    isfile = os.path.isfile("TOKEN.token")
+    time.sleep(1)
 
 os.system("start steam://rungameid/322170")
-os.system("start cmd.exe /c python gui.py")
+
 time.sleep(5)
 
 client = commands.Bot(command_prefix = "$")
